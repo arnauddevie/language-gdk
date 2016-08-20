@@ -1,0 +1,72 @@
+'scopeName': 'source.gdk'
+'name': 'GDK'
+'fileTypes': ['gdk', 'txt']
+
+# Sample GDK syntax
+# Commands:
+# LOG - Log: Enables GDK data logging
+# CHG - Charge: Defines a charge task
+# DSG - Discharge: Defines a discharge task
+# RLX - Relax: Defines a relax period
+# LBL - Label: Defines a point used for looping and branching
+# LOP - Loop: Defines a loop back, used with command LBL
+# INC - Include: Includes an externally referenced script file
+# DEF - Define: Initializes a variable with the specified name and value
+# IMP - Import: Imports the specified .gg.csv file
+# EXP - Export: Exports the specified .gg or .gg.csv file
+# CMD - Low-Level Command: Executes a low-level command
+# SLP - Sleep: Waits for a specified number of seconds
+# HLT - Halt: Waits for the completion of a pending charge or discharge task
+# MTH - Math: Performs a mathematical operation on a variable
+# JMP - Jump: Jumps to a label if specified conditions are met
+#
+# Whitespace and comments ignored.
+# All text after '#' is considered a comment.
+#
+# Syntax: Command,Arguments[]
+
+
+'patterns': [
+  {
+    'match': '\\b(LBL|LOP), (\\w+)\\b';
+    'captures':
+      '1':
+        'name': 'keyword.control.gdk'
+      '2':
+        'name': 'string.label.gdk'
+  }
+  {
+    'match': '\\b(JMP), (\\w+), (\\w+)\\b';
+    'captures':
+      '1':
+        'name': 'keyword.control.gdk'
+      '2':
+        'name': 'variable.language.gdk'
+      '3':
+        'name': 'string.label.gdk'
+  }
+  {
+    'match': '\\b((LOG)|(CHG)|(DSG)|(RLX)|(LBL)|(LOP)|(INC)|(DEF)|(IMP)|(EXP)|(EXP)|(CMD)|(SLP)|(HLT)|(MTH)|(JMP))\\b'
+    'name': 'keyword.control.gdk'
+  }
+  {
+    'match': '\\b(((ROUND)|(ADD)|(SUBTRACT)|(MULTIPLY)|(DIVIDE)|(INCREMENT)|(DECREMENT)|(AND)|(OR)|(XOR)|(NOT))(_((FLOAT)|(BYTE)|(16BIT)|(32BIT)|(SIGNED)))*)\\b'
+    'name': 'variable.language.gdk'
+  }
+  {
+    'match': '\\b((UNCONDITIONAL)|(EQUAL)|(NOT_EQUAL)|(GREATER_THAN)|(LESS_THAN))\\b'
+    'name': 'variable.language.gdk'
+  }
+  {
+    'match': '\\b((true)|(false))\\b'
+    'name': 'variable.language.gdk'
+  }
+  {
+    'match': '\\b(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))\\b'
+    'name': 'constant.numeric.gdk'
+  }
+  {
+    'match': '(#.*)'
+    'name': 'comment.line.number-sign.gdk'
+  }
+]
